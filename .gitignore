@@ -1,0 +1,41 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+*.suo
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.idb
+
+# Log
+*.log
+*.tlog
+*.ilk
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+*.pdb
+*.cache
+*.ppk
+
+# Folder
+.vs
+.vscode
+bin
+obj
+Debug
