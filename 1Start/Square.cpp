@@ -11,7 +11,7 @@
 #include "MyShader.h"
 
 
-int Square::CreateSquare()
+int Square::createSquare()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

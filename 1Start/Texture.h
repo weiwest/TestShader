@@ -6,7 +6,7 @@
 class Texture
 {
 public:
-    static int CreateTexture();
+    static int createTexture();
 
 
 };

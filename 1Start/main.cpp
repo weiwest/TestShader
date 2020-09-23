@@ -7,6 +7,7 @@
 #include "Vertex.h"
 #include "Texture.h"
 #include "Square.h"
+#include "Transform.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -20,13 +21,16 @@ int main()
     //Triangle::createTriangle();
 
      //顶点着色器作用
-    Vertex::createVertex();
+    //Vertex::createVertex();
 
     //渲染三角形纹理
-    //Texture::CreateTexture();
+    //Texture::createTexture();
 
     //渲染矩形纹理
-    //Square::CreateSquare();
+    //Square::createSquare();
+
+    //各种变换
+    Transform::createTransform();
 
     return 0;
 }

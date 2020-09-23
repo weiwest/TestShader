@@ -7,7 +7,7 @@
 class Square
 {
 public:
-    static int CreateSquare();
+    static int createSquare();
 
 
 };
