@@ -33,11 +33,11 @@ int Texture::CreateTexture()
         return -1;
     }
 
-    MyShader* shader = new MyShader("../shader/texture_shader.vs", "../shader/texture_shader.fs");
+    MyShader* shader = new MyShader("../shader/texture_shader.vert", "../shader/texture_shader.frag");
 
     float vertices[] =
     {
-        // positions          // colors           // texture coords (note that we changed them to 'zoom in' on our texture image)
+        // positions          // colors           // texture coords (u v)
         -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   -0.5f, -0.5f, // bottom left
          0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.5f, -0.5f, // bottom right
          0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.5f, // top

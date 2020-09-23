@@ -81,3 +81,9 @@ void MyShader::setInt(const std::string& name, int value)
 {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
+
+int MyShader::getInt(const std::string& name)
+{
+    return glGetUniformLocation(ID, name.c_str());
+    
+}

@@ -33,7 +33,7 @@ int Square::CreateSquare()
         return -1;
     }
 
-    MyShader* shader = new MyShader("../shader/texture_shader.vs", "../shader/texture_shader.fs");
+    MyShader* shader = new MyShader("../shader/texture_shader.vert", "../shader/texture_shader.frag");
 
 
     float vertices[] =

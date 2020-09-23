@@ -17,10 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "res", "res", "{7CD464BF-C7E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shader", "shader", "{63A63609-776F-474D-9833-E7AD28A3579A}"
 	ProjectSection(SolutionItems) = preProject
-		shader\texture_shader.fs = shader\texture_shader.fs
-		shader\texture_shader.vs = shader\texture_shader.vs
-		shader\triangle_shader.fs = shader\triangle_shader.fs
-		shader\triangle_shader.vs = shader\triangle_shader.vs
+		shader\texture_shader.frag = shader\texture_shader.frag
+		shader\texture_shader.vert = shader\texture_shader.vert
+		shader\triangle_shader.frag = shader\triangle_shader.frag
+		shader\triangle_shader.vert = shader\triangle_shader.vert
+		shader\vertex_shader.frag = shader\vertex_shader.frag
+		shader\vertex_shader.vert = shader\vertex_shader.vert
 	EndProjectSection
 EndProject
 Global
