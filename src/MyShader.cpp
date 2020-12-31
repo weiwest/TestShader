@@ -16,7 +16,10 @@ std::string MyShader::getShaderContent(std::string path)
 
 MyShader::MyShader(std::string vPath, std::string fPath)
 {
-    //±àÒë¶¥µã×ÅÉ«Æ÷
+    //è®¾ç½®ç›¸å¯¹è·¯å¾„
+    vPath = "../../../shader/" + vPath;
+    fPath = "../../../shader/" + fPath;
+    //ç¼–è¯‘é¡¶ç‚¹ç€è‰²å™¨
     std::string vst = getShaderContent(vPath);
     const char* vShader = vst.c_str();
 
@@ -33,7 +36,7 @@ MyShader::MyShader(std::string vPath, std::string fPath)
         std::cout << "error compile vertexshader" << infoLog << std::endl;
     }
 
-    //±àÒëÆ¬¶Î×ÅÉ«Æ÷
+    //ç¼–è¯‘ç‰‡æ®µç€è‰²å™¨
     std::string fst = getShaderContent(fPath);
     const char* fShader = fst.c_str();
 
@@ -48,7 +51,7 @@ MyShader::MyShader(std::string vPath, std::string fPath)
         std::cout << "error compile fragShader" << infoLog << std::endl;
     }
 
-    //Á½¸ö×ÅÉ«Æ÷Á´½Óµ½Ò»¸ö×ÅÉ«Æ÷³ÌĞòÉÏ
+    //ä¸¤ä¸ªç€è‰²å™¨é“¾æ¥åˆ°ä¸€ä¸ªç€è‰²å™¨ç¨‹åºä¸Š
     ID = glCreateProgram();
     glAttachShader(ID, vertexShader);
     glAttachShader(ID, fragShader);

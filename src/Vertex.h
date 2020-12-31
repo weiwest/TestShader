@@ -2,8 +2,8 @@
 #include <string>
 
 /*
-    ¶¥µã×ÅÉ«Æ÷£¬±ØÐë½øÐÐ×ø±ê×ª»»
-    Ò²¿ÉÒÔÊäÈëÊä³ö¶¥µãÑÕÉ«
+    é¡¶ç‚¹ç€è‰²å™¨ï¼Œå¿…é¡»è¿›è¡Œåæ ‡è½¬æ¢
+    ä¹Ÿå¯ä»¥è¾“å…¥è¾“å‡ºé¡¶ç‚¹é¢œè‰²
 */
 
 class Vertex

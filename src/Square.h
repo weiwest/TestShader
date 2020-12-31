@@ -2,7 +2,7 @@
 
 #include <string>
 /*
-    µ¥¸öÎÆÀí
+    å•ä¸ªçº¹ç†
 */
 class Square
 {

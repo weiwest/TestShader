@@ -5,17 +5,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "stb_image.h"
 
-#include "Transform.h"
+#include "Texture.h"
 #include "MyShader.h"
 
 
-int Transform::createTransform()
+int Texture::createTexture()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -37,48 +33,39 @@ int Transform::createTransform()
         return -1;
     }
 
-    MyShader* shader = new MyShader("../shader/transform_shader.vert", "../shader/transform_shader.frag");
-
+    MyShader* shader = new MyShader("../../shader/texture_shader.vert", "../../shader/texture_shader.frag");
 
     float vertices[] =
     {
-        //position              color               texture coord
-         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
-    };
-    unsigned int indices[] = {
-    0, 1, 3, // first triangle
-    1, 2, 3  // second triangle
+        // positions          // colors           // texture coords (u v)
+        -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   -0.5f, -0.5f, // bottom left
+         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.5f, -0.5f, // bottom right
+         0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.5f, // top
     };
 
-    //´´½¨¶¥µãÊý×é
+    //åˆ›å»ºé¡¶ç‚¹æ•°ç»„
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    //´´½¨¶¥µã»º³å
+    //åˆ›å»ºé¡¶ç‚¹ç¼“å†²
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //´´½¨Ë÷Òý»º³å
-    unsigned int EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    //é¡¶ç‚¹å¤åˆ¶åˆ°ç¼“å†²é‡Œ
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //ÉèÖÃ¶¥µãµÄÊôÐÔ
+    //è®¾ç½®é¡¶ç‚¹çš„å±žæ€§
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    //ÉèÖÃ¶¥µãÑÕÉ«ÊôÐÔ
+    //è®¾ç½®é¡¶ç‚¹é¢œè‰²å±žæ€§
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    //ÉèÖÃÎÆÀí×ø±êÊôÐÔ
+    //è®¾ç½®çº¹ç†åæ ‡å±žæ€§
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
@@ -93,9 +80,9 @@ int Transform::createTransform()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, channels;
-    std::string path = "../res/container.jpg";
+    std::string path = "../../res/container.jpg";
 
-    // ÉèÖÃÍ¼Æ¬·­×ª
+    // è®¾ç½®å›¾ç‰‡ç¿»è½¬
     stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
     if (data)
@@ -117,28 +104,11 @@ int Transform::createTransform()
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
-        
         shader->use();
-        
-        
-        glm::mat4 trans = glm::mat4(1.0f);
 
-        //ÏÈÐý×ª
-        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-        //ÒÆ¶¯µ½ÓÒÏÂ½Ç
-        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-        //Ëõ·Å
-        trans = glm::scale(trans, glm::vec3(0.8f, 0.8f, 1.0f));
-
-        //ºóÐý×ª
-        //trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-        
-            
-        int transform = shader->getInt("transform");
-        glUniformMatrix4fv(transform, 1, GL_FALSE, glm::value_ptr(trans));
 
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

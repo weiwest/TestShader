@@ -7,11 +7,11 @@
 
 #include "stb_image.h"
 
-#include "Texture.h"
+#include "Square.h"
 #include "MyShader.h"
 
 
-int Texture::createTexture()
+int Square::createSquare()
 {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -33,45 +33,55 @@ int Texture::createTexture()
         return -1;
     }
 
-    MyShader* shader = new MyShader("../shader/texture_shader.vert", "../shader/texture_shader.frag");
+    MyShader* shader = new MyShader("texture_shader.vert", "texture_shader.frag");
+
 
     float vertices[] =
     {
-        // positions          // colors           // texture coords (u v)
-        -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   -0.5f, -0.5f, // bottom left
-         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   0.5f, -0.5f, // bottom right
-         0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.5f, // top
+        //position              color               texture coord
+         0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+         0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+        -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+    };
+    unsigned int indices[] = {
+    0, 1, 3, // first triangle
+    1, 2, 3  // second triangle
     };
 
-    //¥¥Ω®∂•µ„ ˝◊È
+    //ÂàõÂª∫È°∂ÁÇπÊï∞ÁªÑ
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    //¥¥Ω®∂•µ„ª∫≥Â
+    //ÂàõÂª∫È°∂ÁÇπÁºìÂÜ≤
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //∂•µ„∏¥÷∆µΩª∫≥Â¿Ô
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    //ÂàõÂª∫Á¥¢ÂºïÁºìÂÜ≤
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    //…Ë÷√∂•µ„µƒ Ù–‘
+    //ËÆæÁΩÆÈ°∂ÁÇπÁöÑÂ±ûÊÄß
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    //…Ë÷√∂•µ„—’…´ Ù–‘
+    //ËÆæÁΩÆÈ°∂ÁÇπÈ¢úËâ≤Â±ûÊÄß
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    //…Ë÷√Œ∆¿Ì◊¯±Í Ù–‘
+    //ËÆæÁΩÆÁ∫πÁêÜÂùêÊ†áÂ±ûÊÄß
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
     unsigned int texture;
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -79,15 +89,16 @@ int Texture::createTexture()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    int width, height, channels;
-    std::string path = "../res/container.jpg";
 
-    // …Ë÷√Õº∆¨∑≠◊™
+    int width, height, channels;
+    std::string path = "../../../res/img_1.png";
+
+    // ËÆæÁΩÆÂõæÁâáÁøªËΩ¨
     stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
     if (data)
     {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
@@ -108,7 +119,7 @@ int Texture::createTexture()
 
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

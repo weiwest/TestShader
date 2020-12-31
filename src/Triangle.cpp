@@ -29,7 +29,7 @@ int Triangle::createTriangle()
         return -1;
     }
 
-    MyShader* shader = new MyShader("../shader/triangle_shader.vert", "../shader/triangle_shader.frag");
+    MyShader* shader = new MyShader("../../shader/triangle_shader.vert", "../../shader/triangle_shader.frag");
 
     float vertices[] =
     {
@@ -38,25 +38,25 @@ int Triangle::createTriangle()
          0.0f, 0.5f,0.0f,
     };
 
-    //´´½¨¶¥µãÊı×é
+    //åˆ›å»ºé¡¶ç‚¹æ•°ç»„
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    //´´½¨¶¥µã»º³å
+    //åˆ›å»ºé¡¶ç‚¹ç¼“å†²
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    //¶¥µã¸´ÖÆµ½»º³åÀï
+    //é¡¶ç‚¹å¤åˆ¶åˆ°ç¼“å†²é‡Œ
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //ÉèÖÃ¶¥µãµÄÊôĞÔ
+    //è®¾ç½®é¡¶ç‚¹çš„å±æ€§
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    //ÉèÖÃÏß¿òÄ£Ê½
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //è®¾ç½®çº¿æ¡†æ¨¡å¼
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     while (!glfwWindowShouldClose(window))
     {

@@ -28,7 +28,7 @@ int Vertex::createVertex()
         return -1;
     }
 
-    MyShader* shader = new MyShader("../shader/vertex_shader.vert", "../shader/vertex_shader.frag");
+    MyShader* shader = new MyShader("../../shader/vertex_shader.vert", "../../shader/vertex_shader.frag");
     
     float vertices[] =
     {
@@ -37,24 +37,24 @@ int Vertex::createVertex()
          0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
     };
 
-    //´´½¨¶¥µãÊý×é
+    //åˆ›å»ºé¡¶ç‚¹æ•°ç»„
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
 
-    //´´½¨¶¥µã»º³å
+    //åˆ›å»ºé¡¶ç‚¹ç¼“å†²
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-    //¶¥µã¸´ÖÆµ½»º³åÀï
+    //é¡¶ç‚¹å¤åˆ¶åˆ°ç¼“å†²é‡Œ
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //ÉèÖÃ¶¥µãµÄÊôÐÔ
+    //è®¾ç½®é¡¶ç‚¹çš„å±žæ€§
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     
-    //ÉèÖÃ¶¥µãÑÕÉ«ÊôÐÔ
+    //è®¾ç½®é¡¶ç‚¹é¢œè‰²å±žæ€§
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
     glEnableVertexAttribArray(1);
 
@@ -67,7 +67,7 @@ int Vertex::createVertex()
 
         shader->use();
         
-        //Ëæ×ÅÊ±¼ä¸Ä±äÑÕÉ« 
+        //éšç€æ—¶é—´æ”¹å˜é¢œè‰² 
         //float timeValue = glfwGetTime();
         //float green = sin(timeValue) / 2.0f + 0.5f;
         //int location = shader->getInt("vertexColor");

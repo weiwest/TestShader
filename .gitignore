@@ -39,3 +39,5 @@
 bin
 obj
 Debug
+build
+lib

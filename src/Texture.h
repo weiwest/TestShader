@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-    µ¥¸öÎÆÀí
+    å•ä¸ªçº¹ç†
 */
 class Texture
 {

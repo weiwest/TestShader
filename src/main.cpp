@@ -14,23 +14,23 @@
 
 int main()
 {
-    //´´½¨´°¿Ú
+    //åˆ›å»ºçª—å£
     //Window::createWindow();
 
-    //»­Èı½ÇĞÎ
+    //ç”»ä¸‰è§’å½¢
     //Triangle::createTriangle();
 
-     //¶¥µã×ÅÉ«Æ÷×÷ÓÃ
+     //é¡¶ç‚¹ç€è‰²å™¨ä½œç”¨
     //Vertex::createVertex();
 
-    //äÖÈ¾Èı½ÇĞÎÎÆÀí
+    //æ¸²æŸ“ä¸‰è§’å½¢çº¹ç†
     //Texture::createTexture();
 
-    //äÖÈ¾¾ØĞÎÎÆÀí
-    //Square::createSquare();
+    //æ¸²æŸ“çŸ©å½¢çº¹ç†
+    Square::createSquare();
 
-    //¸÷ÖÖ±ä»»
-    Transform::createTransform();
+    //å„ç§å˜æ¢
+    //Transform::createTransform();
 
     return 0;
 }
